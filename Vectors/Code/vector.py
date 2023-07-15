@@ -3,22 +3,21 @@ import matplotlib.pyplot as plt
 from sympy import symbols, Eq, solve
 #line 1
 def line1(x):
-  return (2-3*x)
-#line 2
+   return (2-3*x)
+#line 1
 def line2(x):
   return (-3+2*x)
 
 x, y = symbols('x y')
 
-#Define the equations
+# Define the equations
 eq1 = Eq(3*x + y - 2, 0)
 eq2 = Eq(2*x - y - 3, 0)
 
-#solve the equations
+# Solve the system of equations
 solution = solve((eq1, eq2), (x, y))
 
-#Extract the solutions for x and y
-
+# Extract the solutions for x and y
 x_solution = solution[x]
 y_solution = solution[y]
 print("Solution:")
@@ -27,9 +26,8 @@ print(f"y = {y_solution}")
 
 def line3(x):
   return (3 - ((3 - 2*y_solution)/x_solution)*x)/2
-  #return ((3 - 5*x)/2)
 # Define the x values for the lines
-x_values = np.linspace(-10, 10, 100)
+x_values = np.linspace(-3, 3, 30)
 
 # Calculate the y values for each line
 y_values1 = line1(x_values)
@@ -45,25 +43,21 @@ plt.plot(x_values, y_values2, label='2x - y - 3 = 0')
 #plot solution line i.e line3
 plt.plot(x_values, y_values3, label='5x + 2y -3 = 0')
 
+# Plot the intersection point
+plt.plot(x_solution, y_solution, 'ro', label='Intersection Point')
+
 # Plot x and y axes
 plt.axhline(0, color='black', linewidth=0.5)
 plt.axvline(0, color='black', linewidth=0.5)
 
 # Set the limits of the plot
-plt.xlim(-10, 10)
-plt.ylim(-10, 10)
+def display_coordinates(x, y):
+    plt.scatter(x, y, color='green')  # Plot the point
+    plt.text(x, y, f'({x}, {y})', verticalalignment='bottom')
+display_coordinates((x_solution + y_solution), 0)
+display_coordinates(0,(x_solution + y_solution))
+display_coordinates(x_solution,y_solution)
 
-# Add labels and title
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Intersection of Three lines at a point')
-
-# Plot the intersection point
-plt.plot(x_solution, y_solution, 'ro', label='Intersection Point')
-
-# Add legend
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
 plt.legend()
-
-# Show the plot
-plt.grid(True)
-plt.show()
